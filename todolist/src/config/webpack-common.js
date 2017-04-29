@@ -8,16 +8,17 @@ const fs = require('fs');
 const glob = require('glob');
 const pathMap = require('./pathmap');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 process.env.UV_THREADPOOL_SIZE = 100;
 
 const srcDir = helpers.root('src');
 const nodeModule = helpers.root('node_modules');
-const outputPath = helpers.root('assets', 'dist');
-
+const outputPath = helpers.root('..', 'static', 'dist');
+const publicPath = helpers.root('public');
 
 let entry = (() => {
-    let entryFiles = glob.sync(srcDir+'/*.{hs,jsx}');
+    let entryFiles = glob.sync(srcDir +'/*.{js,jsx}');
     let map = {};
     entryFiles.forEach((file)=>{
         let filename = file.substring(file.lastIndexOf("\/") + 1, file.lastIndexOf("."));
@@ -31,7 +32,7 @@ module.exports = function(option) {
 
     return {
         entry: Object.assign(entry, {
-            "vendor": ["React", "bootstrap"]
+            "vendor": ["react"]
         }),
         output: {
             path: outputPath,
@@ -41,9 +42,9 @@ module.exports = function(option) {
             publicPath: outputPath
         },
         resolve: {
-            root: [srcDir, nodeModule],
+            // root: [srcDir, nodeModule],
             alias: pathMap,
-            extensions: ["", ".js", ".css", ".scss", ".tpl", ".png", ".jpg"]
+            extensions: [".js", ".css", ".scss", ".tpl", ".png", ".jpg"]
         },
 
         module: {
@@ -79,6 +80,10 @@ module.exports = function(option) {
                     test : /\.jsx$/,
                     exclude : /(node_modules|bower_modules)/,
                     loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015']
+                },
+                {
+                    test: /\.html$/,
+                    use: 'raw-loader',
                 }
             ]
         },
@@ -97,21 +102,25 @@ module.exports = function(option) {
                 chunks: entry
             })
         ],
-
+        watch: true,
         devServer: {
-            watch: true,
             watchOptions: {
                 ignored: /node_module/,
                 poll: 1000
             },
+            // proxy: {
+            //     "*":{
+            //         target: 'http://localhost:8000'
+            //     }
+            // },
             watchContentBase: true,
-            contentBase: outputPath,
+            contentBase: publicPath,
             compress: true,
-            port: 3000,
-            // hot: true,
+            port: 8000,
+            hot: true,
             // noInfo: false,
             // inline: true,
-            // publicPath: publicPath,
+            publicPath: outputPath,
             stats: {
                 cached: false,
                 colors: true

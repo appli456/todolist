@@ -15,4 +15,4 @@ module.exports = {
     "NodeModules" : join("../node_modules"),
     "React" : join("../node_modules/react/react.js"),
     "bootstrap": join("../node_modules/dist/js/bootstrap.min.js")
-}
+};

@@ -44,12 +44,9 @@
     "webpack-merge": "^4.1.0"
   },
   "scripts": {
-    "build-css": "node-sass src/ -o src/",
-    "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive",
-    "start-js": "react-scripts start",
-    "start": "npm-run-all -p watch-css start-js",
-    "build": "npm run build-css && react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "npm run server:dev",
+    "server:dev": "webpack --watch",
+    "server:dev:hmr": "npm run server:dev -- --inline --hot",
+    "clean": "rm -rf todolist/static/dist"
   }
 }
