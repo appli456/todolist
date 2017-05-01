@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -100,6 +101,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# restful api setting
+# http://www.django-rest-framework.org
+REST_FRAMEWORK = {
+
+}
+
+
+INCLUDE_APPS = {
+    'todolist',
+    'list'
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

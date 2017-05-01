@@ -116,7 +116,7 @@ module.exports = function(option) {
             watchContentBase: true,
             contentBase: publicPath,
             compress: true,
-            port: 8000,
+            port: 8080,
             hot: true,
             // noInfo: false,
             // inline: true,
