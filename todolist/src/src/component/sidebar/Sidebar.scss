@@ -1,7 +1,55 @@
 .work-sidebar {
-  height: 100%;
+  //height: 100%;
+  padding: 0 5px;
+  overflow-y: auto;
+  // background: #f5f2f0 repeat 0 0 none;
   ul {
     text-decoration: none;
     overflow: auto;
+
+    li.todolist-item {
+      width: 100%;
+      padding: 2px;
+      font-size: 1.5em;
+      word-break: break-all;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow-x: hidden;
+      background: #ffffff repeat 0 0 none;
+      //background: #f5f2f0 repeat 0 0 none;
+      // border: 1px solid #cccccc;
+      border-radius: 2px;
+      cursor: pointer;
+      &:hover {
+        background: #f0f0f0 repeat 0 0 none;
+      }
+
+      &.success {
+        background: #5cb85c repeat 0 0 none;
+        border: 1px #4cae4c solid;
+        color: #ffffff;
+        &:hover {
+          background-color: #449d44;
+          border-color: #398439;
+        }
+      }
+
+      &.expire {
+        background: #d9534f repeat 0 0 none;
+        border: 1px solid #d43f3a;
+        color: #ffffff;
+        &:hover {
+          background-color: #ac2925;
+          border-color: #761c19;
+        }
+      }
+
+
+    }
+
+    li + li {
+      //margin-top: 2px;
+      border-top: 1px solid #cccccc;
+    }
   }
 }

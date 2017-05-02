@@ -9,11 +9,23 @@ class Header extends React.Component {
         super(props);
     }
 
+    addItem() {
+
+    };
+
     render() {
         return (<header className="list-header">
             <div className="inner">
-                <div className="section right">
-                    <i className="fa fa-plus"/>
+                <div className="section left">
+
+                </div>
+                <div className="section center">
+                    <i className="fa fa-search search-icon"/>
+                    <input className="text-input"
+                        type="text" placeholder="search"/>
+                </div>
+                <div className="section right" onClick={this.addItem.bind(this)}>
+                    <i className="fa fa-plus plus"/>
                 </div>
             </div>
         </header>)

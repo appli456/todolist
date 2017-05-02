@@ -11,7 +11,7 @@ class Container extends React.Component {
     // }
     generateClass() {
         let str = '';
-        str += (this.props.fluid ? 'container-fluid':'container');
+        // str += (this.props.fluid ? 'container-fluid':'container');
         return str;
     }
 
