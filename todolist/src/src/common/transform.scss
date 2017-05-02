@@ -1,0 +1,159 @@
+/**
+ * @create by lirz on 2016.11.15
+ * transform polyfill
+ * include CSS Rules:
+ *    backface-visibility: visible|hidden;
+ *      Default: visible;
+ *    perspective: none|inherit|initial|unset|<length>;
+ *      Default: none;
+ *    perspective-origin: <x-position> <y-position>;
+ *      Default: none;
+ *    transform:<transform-function>;
+ *      Default: none;
+ *    transform-origin: <x-offset> <y-offset> <z-offset>;
+ *      Notice: z-offset need use transform-origin-3d;
+ *      Default: 50% 50% 0;
+ *    transform-style: flat|preserve-3d;
+ *      Default: flat;
+ *    transform-box: border-box|fill-box|view-box;
+ *      Notice: Firefox only;
+ *      Default: border-box;
+ */
+
+$browsers: webkit, moz, ms, o;
+/**
+ * backface-visibility polyfill
+ * @param: $value
+ * @default: visible
+ */
+@mixin backface-visibility($value: visible) {
+  @each $i in $browsers {
+    -#{$i}-backface-visibility: $value;
+  }
+  backface-visibility: $value;
+}
+
+/**
+ * perspective polyfill
+ * @param: $value;
+ * @default: none
+ */
+@mixin perspective ($value: none) {
+  @each $i in $browsers {
+    -#{$i}-perspective: $value;
+  }
+  perspective: $value;
+}
+
+/**
+ * perspective-origin
+ * @param: $value;
+ * @default: 50% 50%
+ */
+@mixin perspective-origin($x: 50%, $y: 50%) {
+  @if $x == inherit {
+    @each $i in $browsers {
+      -#{$i}-perspective-origin: $x;
+    }
+    perspective-origin: $x;
+  } @else if $x == initial {
+    @each $i in $browsers {
+      -#{$i}-perspective-origin: $x;
+    }
+    perspective-origin: $x;
+  } @else if $x == unset {
+    @each $i in $browsers {
+      -#{$i}-perspective-origin: $x;
+    }
+    perspective-origin: $x;
+  } @else {
+    @each $i in $browsers {
+      -#{$i}-perspective-origin: $x $y;
+    }
+    perspective-origin: $x $y;
+  }
+}
+
+/**
+ * transform polyfill
+ * @param: $transform-function;
+ * @default: none;
+ */
+@mixin transform($transform-function: none) {
+  @each $i in $browsers {
+    -#{$i}-transform: $transform-function;
+  }
+  transform: $transform-function;
+}
+
+/**
+ * transform-origin polyfill
+ * @param: $x
+ * @param: $y
+ * @default: 50% 50%;
+ */
+@mixin transform-origin($x: 50%, $y: 50%) {
+  @each $i in $browsers {
+    -#{$i}-transform-origin: $x $y;
+  }
+  transform-origin: $x $y;
+}
+/**
+ * transform-origin polyfill
+ * @param: $x
+ * @param: $y
+ * @param: $z
+ * @default: 50% 50% 0;
+ */
+@mixin transform-origin-3d($x: 50%, $y: 50%, $z: 0) {
+  @each $i in $browsers {
+    -#{$i}-transform-origin: $x $y $z;
+  }
+  transform-origin: $x $y $z;
+}
+
+/**
+ * transform-style polyfill
+ * @param: $style
+ * @default: flat
+ */
+@mixin transform-style($style: flat) {
+  @each $i in $browsers {
+    -#{$i}-transform-style: $style;
+  }
+  transform-style: $style;
+}
+
+/**
+ * transform-box polyfill
+ * @param: $box
+ * @default: border-box
+ */
+@mixin transform-box ($box: border-box) {
+  @each $i in $browsers {
+    -#{$i}-transform-box: $box;
+  }
+  transform-box: $box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

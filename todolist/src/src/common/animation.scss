@@ -1,0 +1,155 @@
+/**
+ * @create by lirz on 2016.11.15
+ * animation polyfill
+ * include CSS Rules:
+ *    @keyframe: <identifier> <keyframe-block-list>
+ *    animation: <duration> <timing-function> <delay> <iteration-count> <direction> <fill-mode> <play-state> <name>;
+ *      Default: 0s ease 0s 1 normal none running
+ *      Notice: In @include, the first parameter is name
+ *    animation-delay: <time>...;
+ *      Default: 0s
+ *    animation-direction: normal|reverse|alternate|alternate-reverse;
+ *      Default: normal
+ *    animation-duration: <time>
+ *      Default: 0s
+ *    animation-fill-mode: none|forwards|backwards|both
+ *      Default: none
+ *    animation-iteration-count: <number>|infinite
+ *      Default: 1
+ *    animation-name: none|<custom-ident>
+ *      Default: none
+ *    animation-play-state: running|paused
+ *      Default: running
+ *    animation-timing-function: <timing-function>
+ *      Default: ease
+ */
+$browsers: webkit, khtml, moz, ms, o;
+
+/**
+ * @keyframes polyfill
+ * @param: $keyframes-name
+ */
+@mixin keyframes($keyframes-name) {
+  @-webkit-keyframes #{$keyframes-name} {
+    @content;
+  }
+  @-khtml-keyframes #{$keyframes-name} {
+    @content;
+  }
+  @-moz-keyframes #{$keyframes-name} {
+    @content;
+  }
+  @-ms-keyframes #{$keyframes-name} {
+    @content;
+  }
+  @-o-keyframes #{$keyframes-name} {
+    @content;
+  }
+  @keyframes #{$keyframes-name} {
+    @content;
+  }
+}
+
+/**
+ * animation polyfill
+ * @param $name
+ * @param $duration
+ * @param $timing-function
+ * @param $delay
+ * @param $iteration-count
+ * @param $direction
+ * @param $fill-mode
+ * @param $play-state
+ */
+@mixin animation($name: none, $duration: 0s, $timing-function: ease,
+$delay: 0s, $iteration-count: 1, $direction: normal,
+$fill-mode: none, $play-state: running) {
+  @each $i in $browsers {
+    -#{$i}-animation: $duration $timing-function $delay $iteration-count $direction $fill-mode $play-state $name;
+  }
+  animation: $duration $timing-function $delay $iteration-count $direction $fill-mode $play-state $name;
+}
+
+/**
+ * animation-delay polyfill
+ * @param $t
+ * @param $time
+ */
+@mixin animation-delay($t: 0s, $time...) {
+  @each $i in $browsers {
+    -#{$i}-animation-delay: $t, $time;
+  }
+  animation-delay: $t, $time;
+}
+
+/**
+ * animation-direction polyfill
+ * @param $d
+ * @param $direction
+ */
+@mixin animation-direction($d: normal, $direction...) {
+  @each $i in $browsers {
+    -#{$i}-animation-direction: $d, $direction;
+  }
+  animation-direction: $d, $direction;
+}
+
+/**
+ *
+ */
+@mixin animation-duration($d: 0s, $duration...) {
+  @each $i in $browsers {
+    -#{$i}-animation-duration: $d, $duration;
+  }
+  animation-duration: $d, $duration;
+}
+
+/**
+
+ */
+@mixin animation-fill-mode($f: none, $fill-mode...) {
+  @each $i in $browsers {
+    -#{$i}-animation-fill-mode: $f, $fill-mode;
+  }
+  animation-fill-mode: $f, $fill-mode;
+}
+
+/**
+
+ */
+@mixin animation-iteration-count($it: 1, $iteration-count...) {
+  @each $i in $browsers {
+    -#{$i}-animation-iteration-count: $it, $iteration-count;
+  }
+  animation-iteration-count: $it, $iteration-count;
+}
+
+/**
+
+ */
+@mixin animation-name($n: none, $name...) {
+  @each $i in $browsers {
+    -#{$i}-animation-name: $n, $name;
+  }
+  animation-name: $n, $name;
+}
+
+/**
+
+ */
+@mixin animation-play-state($p:running, $play-state...) {
+  @each $i in $browsers {
+    -#{$i}-animation-play-state: $p, $play-state;
+  }
+  animation-play-state: $p, $play-state;
+}
+
+/**
+
+ */
+@mixin animation-timing-function($t: ease, $timing-function...) {
+  @each $i in $browsers {
+    -#{$i}-animation-timing-function: $t, $timing-function;
+  }
+  animation-timing-function: $t, $timing-function;
+}

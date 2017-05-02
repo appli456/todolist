@@ -6,23 +6,24 @@ import React from 'react';
 import Container from './../../component/container/Container';
 import Sidebar from './../../component/sidebar/Sidebar';
 import Content from './../content/content';
-
+import Header from './../../component/header/Header'
+import './root.scss';
 
 class Root extends React.Component {
     render(){
         return (<Container fluid={true}>
-            <Sidebar>
-                <ul>
-                    <li><p>111</p></li>
-                    <li>
-                        <p>222</p>
+            <Header/>
+            <div className="root-container">
+                <div>
+                    <Sidebar>
                         <ul>
-                            <li><p>333</p></li>
+                            <li><p>111</p></li>
+                            <li><p>222</p></li>
                         </ul>
-                    </li>
-                </ul>
-            </Sidebar>
-            <Content/>
+                    </Sidebar>
+                </div>
+                <Content/>
+            </div>
         </Container>)
     }
 }

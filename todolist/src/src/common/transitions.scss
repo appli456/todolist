@@ -1,0 +1,47 @@
+/**
+ * @create by lirz on 2016.11.15
+ * transition polyfill
+ * include CSS Rules:
+ *    transition
+ *    transition-delay
+ *    transition-duration
+ *    transition-property
+ *    transition-timing-function
+ */
+$browsers: webkit, khtml, moz, ms, o;
+
+@mixin transition($l, $list...){
+  @each $i in $browsers {
+    -#{$i}-transition: $l, $list;
+  }
+  transition: $l, $list;
+}
+
+@mixin transition-delay($delay: 0s, $d-list...){
+  @each $i in $browsers {
+    -#{$i}-transition-delay: $delay, $d-list;
+  }
+  transition-delay: $delay, $d-list;
+}
+
+@mixin transition-duration($duration: 0s, $d-list...){
+  @each $i in $browsers {
+    -#{$i}-transition-duration: $duration, $d-list;
+  }
+  transition-duration: $duration, $d-list;
+}
+
+@mixin transition-property($property: all, $p-list...){
+  @each $i in $browsers {
+    -#{$i}-transition-property: $property, $p-list;
+  }
+  transition-property: $property, $p-list;
+}
+
+@mixin transition-timing-function($timing-function: ease, $func-list...){
+  @each $i in $browsers {
+    -#{$i}-transition-timing-function: $timing-function, $func-list;
+  }
+
+  transition-timing-function: $timing-function, $func-list;
+}

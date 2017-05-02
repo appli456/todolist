@@ -1,0 +1,47 @@
+/**
+ *
+ */
+
+$browsers: webkit, khtml, moz, ms, o;
+
+/**
+ * box-shadow
+ */
+@mixin box-shadow($top: 0, $left: 0, $color: rgba(0, 0, 0, 0.2), $blur: 0, $spread: 0, $inset: false) {
+  @each $i in $browsers {
+    @if $inset {
+      #{$i}-box-shadow: inset $top $left $blur $spread $color;
+    } @else {
+      #{$i}-box-shadow: $top $left $blur $spread $color;
+    }
+  }
+  @if $inset {
+    box-shadow: inset $top $left $blur $spread $color;
+  } @else {
+    box-shadow: $top $left $blur $spread $color;
+  }
+}
+
+/**
+ * box-sizing
+ */
+
+@mixin box-sizing($box-model: content-box) {
+  @each $i in $browsers {
+    #{$i}-box-sizing: $box-model;
+  }
+  box-sizing: $box-model;
+}
+
+
+/**
+ * border-radius
+ */
+
+@mixin border-radius ($radius: 0) {
+  @each $i in $browsers {
+    #{$i}-border-radius: $radius;
+  }
+
+  border-radius: $radius;
+}

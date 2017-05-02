@@ -1,0 +1,353 @@
+/**
+ * @create by lirz on 2016.11.15
+ * flex polyfill
+ * include CSS Rules:
+ *    display: flex;
+ *    display: inline-flex;
+ *    flex-direction: row|row-reverse|column|column-reverse;
+ *      Default: row;
+ *    flex-wrap: nowrap|wrap|wrap-reverse;
+ *      Default: nowrap;
+ *    flex-flow: flex-direction flex-wrap;
+ *      Default: row nowrap;
+ *    order: <integer>;
+ *      Default: 0;
+ *    flex-grow: <number>;
+ *      Default: 1;
+ *    flex-shrink: <number>;
+ *      Default: 0;
+ *    flex-basis: <width>|content|auto|min-content|max-content|fit-content|fill;
+ *      Default: auto;
+ *    flex: flex-grow flex-shrink flex-basis;
+ *      Default: 1 0 auto;
+ *    justify-content: flex-start|flex-end|center|space-between|space-around;
+ *      Default: flex-start;
+ *    align-items: flex-start|flex-end|center|baseline|stretch;
+ *      Default: stretch;
+ *    align-self: auto|flex-start|flex-end|center|baseline|stretch;
+ *      Default: auto;
+ *    align-content: flex-start|flex-end|center|space-between|space-around|stretch;
+ *      Default: stretch;
+ */
+
+
+$browsers: webkit, moz, ms, o;
+/**
+ * display:flex; polyfill
+ */
+@mixin flex-box {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+/**
+ * display:inline-flex; polyfill
+ */
+@mixin inline-flex {
+
+  // because webkit and moz have the attribute
+  @each $inline-box in webkit, moz {
+    display: -#{$inline-box}-inline-box;
+  }
+
+  // because webkit and ms have the attribute
+  @each $inline-flex in webkit, ms {
+    display: -#{$inline-flex}-inline-flex;
+  }
+
+  display: inline-flex;
+}
+
+/**
+ * flex-direction polyfill
+ * @param: $value
+ * @default: row
+*/
+@mixin flex-direction($value: row){
+
+  // fuck browser attribute
+  @if $value == row-reverse {
+    // because webkit and moz have the attribute
+    @each $browser in webkit, moz {
+      -#{$browser}-box-direction: reverse;
+      -#{$browser}-box-orient: horizontal;
+    }
+  } @else if $value == column-reverse {
+
+    @each $browser in webkit, moz {
+      -#{$browser}-box-direction: reverse;
+      -#{$browser}-box-orient: vertical;
+    }
+  } @else if $value == column {
+
+    @each $browser in webkit, moz {
+      -#{$browser}-box-direction: normal;
+      -#{$browser}-box-orient: vertical;
+    }
+  } @else {
+
+    @each $browser in webkit, moz {
+      -#{$browser}-box-direction: normal;
+      -#{$browser}-box-orient: horizontal;
+    }
+  }
+
+  @each $browser in webkit, ms {
+    -#{$browser}-flex-direction: $value;
+  }
+  flex-direction: $value;
+}
+
+/**
+ * flex-wrap polyfill
+ * @param: $value
+ * @default: nowrap
+ */
+@mixin flex-wrap($value: nowrap) {
+  -webkit-flex-wrap: $value;
+  @if $value == nowrap {
+    -ms-flex-wrap: none;
+  } @else {
+    -ms-flex-wrap: $value;
+  }
+  flex-wrap: $value;
+}
+
+/*
+ * flex-flow polyfill
+ * @param: $values
+ * @default: (row nowrap)
+ */
+@mixin flex-flow($values: (row nowrap)) {
+
+  // No Box Fallback
+  @each $browser in webkit, ms {
+    -#{$browser}-flex-flow: $values;
+  }
+
+  flex-flow: $values;
+}
+
+/*
+ * order polyfill
+ * @param: $int
+ * @default: 0
+ */
+@mixin order ($int: 0) {
+  @each $browser in webkit, moz {
+    -#{browser}-box-ordinal-group: $int + 1;
+  }
+  -webkit-order: $int;
+  -ms-flex-order: $int;
+  order: $int;
+}
+
+/**
+ * flex-grow polyfill
+ * @param: $int
+ * @default: 0
+ */
+@mixin flex-grow($int: 1) {
+  // box
+  @each $browser in webkit, moz {
+    -#{$browser}-box-flex: $int;
+  }
+  // flex
+  -webkit-flex-grow: $int;
+  -ms-flex: $int;
+  flex-grow: $int;
+}
+
+/**
+ * flex-shrink polyfill
+ * @param: $int
+ * @default: 0
+ */
+@mixin flex-shrink($int: 0) {
+  @each $browser in webkit, moz {
+    -#{$browser}-flex-shrink: $int;
+  }
+
+  -ms-flex: 1 $int;
+  flex-shrink: $int;
+}
+
+/**
+ * flex-basis polyfill
+ * @param: $value
+ * @default: auto
+ */
+@mixin flex-basis($value: auto){
+
+  @if $value == fit-content {
+    @each $i in webkit, moz {
+      -webkit-flex-basis: -#{$i}-#{$value};
+      flex-basis: -#{$i}-#{$value};
+    }
+  } @else if $value == min-content {
+    @each $i in webkit, moz {
+      -webkit-flex-basis: -#{$i}-#{$value};
+      flex-basis: -#{$i}-#{$value};
+    }
+  } @else if $value == fill {
+    -webkit-flex-basis: -webkit-#{$value}-available;
+    -webkit-flex-basis: -moz-available;
+    -webkit-flex-basis: #{$value};
+    flex-basis: -webkit-#{$value}-available;
+    flex-basis: -moz-available;
+    flex-basis: #{$value};
+  } @else if $value == max-content {
+    @each $i in webkit, moz {
+      -webkit-flex-basis: -#{$i}-#{$value};
+      flex-basis: -#{$i}-#{$value};
+    }
+  } @else {
+    -webkit-flex-basis: $value;
+    flex-basis: $value;
+  }
+}
+
+/*
+ * flex polyfill
+ * @param: $grow flex-grow
+ * @param: $shrink flex-shrink
+ * @param: $basis flex-basis
+ * @default: 1, 0, auto
+ */
+@mixin flex($grow: 1, $shrink: 0, $basis: auto) {
+  $grow-box-flex: $shrink;
+
+  @if type_of($grow) == 'list' {
+    $grow-box-flex: nth($grow, 1);
+  }
+
+  @each $i in webkit, moz {
+    -#{$i}-box: $grow-box-flex;
+  }
+
+  -webkit-flex: $grow $shrink $basis;
+  -ms-flex: $grow $shrink $basis;
+  flex: $grow $shrink $basis;
+}
+
+/*
+ * justify-content polyfill
+ * @param: $value
+ * @default: flex-start
+ */
+@mixin justify-content($value: flex-start) {
+  @if $value == flex-start {
+    @each $i in webkit, moz {
+      -#{$i}-box-pack: start;
+    }
+    -ms-flex-pack: start;
+  } @else if $value == flex-end {
+    @each $i in webkit, moz {
+      -#{$i}-box-pack: end;
+    }
+    -ms-flex-pack: end;
+  } @else if $value == space-between {
+    @each $i in webkit, moz {
+      -#{$i}-box-pack: justify;
+    }
+    -ms-flex-pack: justify;
+  } @else if $value == space-around {
+    -ms-flex-pack: distribute;
+  } @else {
+    @each $i in webkit, moz {
+      -#{$i}-box-pack: $value;
+    }
+    -ms-flex-pack: $value;
+  }
+
+  -webkit-justify-content: $value;
+  justify-content: $value;
+}
+
+/**
+ * align-items polyfill
+ * @param: $value
+ * @default: stretch
+ */
+@mixin align-items($value: stretch) {
+  @if $value == flex-start {
+    @each $i in webkit-box, moz-box, ms-flex {
+      -#{$i}-align: start;
+    }
+  } @else if $value == flex-end {
+    @each $i in webkit-box, moz-box, ms-flex {
+      -#{$i}-align: end;
+    }
+  } @else {
+    @each $i in webkit-box, moz-box, ms-flex {
+      -#{$i}-align: $value;
+    }
+  }
+
+  -webkit-align-items: $value;
+  align-items: $value;
+}
+
+/**
+ * align-self polyfill
+ * @param: $value
+ * @default: auto
+ */
+@mixin align-self($value: auto) {
+  // No Webkit Box Fallback
+  -webkit-align-self: $value;
+  @if $value == flex-start {
+    -ms-flex-item-align: start;
+  } @else if $value == flex-end {
+    -ms-flex-item-align: end;
+  } @else {
+    -ms-flex-item-align: $value;
+  }
+  align-self: $value;
+}
+
+/**
+ * align-content polyfill
+ * @param: $value;
+ * @default: stretch;
+ */
+@mixin align-content($value: stretch) {
+  // No Webkit Box Fallback
+  -webkit-align-content: $value;
+  @if $value == flex-start {
+    -ms-flex-line-pack: start;
+  } @else if $value == flex-end {
+    -ms-flex-line-pack: end;
+  } @else {
+    -ms-flex-line-pack: $value;
+  }
+  align-content: $value;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
