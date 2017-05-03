@@ -45,7 +45,7 @@
   },
   "scripts": {
     "start": "npm run server:dev",
-    "server:dev": "webpack --watch",
+    "server:dev": "webpack --watch --progress",
     "server:dev:hmr": "npm run server:dev -- --inline --hot",
     "clean": "rm -rf todolist/static/dist"
   }

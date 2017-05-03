@@ -18,10 +18,11 @@ class Sidebar extends React.Component {
     }
 
     generateListItem(value, key) {
-        let r = Math.floor(Math.random() * 3);
-        let str = (r === 2 ? 'success' : (r === 1 ? 'expire' : ''));
+        // let r = Math.floor(Math.random() * 3);
 
-        return (<li className={"todolist-item " + str}
+        return (<li className={"todolist-item " +
+        (value.finish === 2 ? 'success' : (value.finish === 1 ? 'expire' : '')) // test data
+        }
                     onClick={this.onClickItem.bind(this)}
                     key={key} data-id={key}>
             {value.name}

@@ -14,7 +14,7 @@ class Root extends React.Component {
         super(props);
         let arr = [];
         for(let i = 0; i < 63; i++) {
-            arr.push({name: 'aaaa'});
+            arr.push({name: 'aaaa', finish: Math.floor(Math.random() * 3)});
         }
         this.state = {
             data: [{name: '111'}, {name: '222'}, {name: '333'}, {name: '9999999999999999999999999999999999999999999'}].concat(arr)
@@ -27,11 +27,19 @@ class Root extends React.Component {
             <div className="root-container">
                 <div className="col-md-5">
                     <Sidebar data={this.state.data.map(function(value) {
-                        return {name: value.name, id: value.id}
+                        return {name: value.name, finish: value.finish}
                     })}/>
                 </div>
+
                 <div className="col-md-7">
-                    <Content/>
+                    <Content data={{
+                        id: '1',
+                        name: '???',
+                        detail: 'something\nwrong\n909090909090990397398749274987234982374981091719287498\njkfkjsdkf',
+                        expire_date: (new Date()).toLocaleDateString(),
+                        priority: '5',
+                        finish: false
+                    }}/>
                 </div>
             </div>
         </Container>)

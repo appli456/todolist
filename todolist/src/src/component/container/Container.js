@@ -6,18 +6,13 @@ import React ,{ PropTypes }from 'react';
 import './Container.scss';
 class Container extends React.Component {
 
-    // constructor(props){
-    //     super(props);
-    // }
-    generateClass() {
-        let str = '';
-        // str += (this.props.fluid ? 'container-fluid':'container');
-        return str;
+    constructor(props){
+        super(props);
     }
 
     render() {
         return React.createElement('div',
-            {className: this.generateClass()},
+            {className: null},
             this.props.children)
     }
 }

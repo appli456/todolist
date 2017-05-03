@@ -25,6 +25,7 @@ class Header extends React.Component {
                         type="text" placeholder="search"/>
                 </div>
                 <div className="section right" onClick={this.addItem.bind(this)}>
+                    <i className="fa fa-sort sort"/>
                     <i className="fa fa-plus plus"/>
                 </div>
             </div>

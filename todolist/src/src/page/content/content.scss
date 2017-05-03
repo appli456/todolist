@@ -1,0 +1,18 @@
+.list-content {
+
+  .transaction-container {
+    .title {
+
+    }
+  }
+
+  .button-container {
+    button + button {
+      margin-left: 10px;
+    }
+    .edit, .delete, .check {
+      margin-right: 3px;
+    }
+  }
+
+}

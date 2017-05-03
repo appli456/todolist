@@ -23,6 +23,27 @@
   to { transform: rotate(360deg); }
 }
 
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+body {
+  display: block;
+}
+
+#root, #root > div {
+  height: 100%;
+  position: relative;
+}
+
 section {
   position: relative;
+}
+
+p {
+  margin: 0;
 }

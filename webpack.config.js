@@ -2,6 +2,7 @@
  * Created by li-rz on 17-4-27.
  */
 let load;
+
 switch (process.env.NODE_ENV) {
     case "prod":
     case "production":
@@ -13,5 +14,5 @@ switch (process.env.NODE_ENV) {
     default:
         load = require('./todolist/src/config/webpack-dev')({debug: true});
 }
-// console.log(load);
+//console.log(load);
 module.exports = load;
