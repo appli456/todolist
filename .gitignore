@@ -286,3 +286,5 @@ ENV/
 db.sqlite3
 
 #*.css
+
+migrations/

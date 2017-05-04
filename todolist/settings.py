@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'todolist'
+    'todolist',
+    'app_todolist'
 ]
 
 MIDDLEWARE = [
@@ -110,7 +111,8 @@ REST_FRAMEWORK = {
 
 
 INCLUDE_APPS = {
-    'todolist'
+    'todolist',
+    'app_todolist'
 }
 
 # Internationalization

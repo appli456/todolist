@@ -7,12 +7,12 @@ switch (process.env.NODE_ENV) {
     case "prod":
     case "production":
 
-        load = require('./todolist/src/config/webpack-build')({debug: false});
+        load = require('./app_todolist/src/config/webpack-build')({debug: false});
         break;
     case "dev":
     case "development":
     default:
-        load = require('./todolist/src/config/webpack-dev')({debug: true});
+        load = require('./app_todolist/src/config/webpack-dev')({debug: true});
 }
 //console.log(load);
 module.exports = load;

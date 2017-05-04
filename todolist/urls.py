@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-import view
+
+from app_todolist import views
 
 urlpatterns = [
-    url(r'^list/', view.index),
+    url(r'^api/get-data', views.get_data),
+    url(r'^api/add-data', views.add_data),
+    url(r'^list/', views.index),
     url(r'^admin/', admin.site.urls),
 ]

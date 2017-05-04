@@ -1,4 +1,4 @@
-import model
+from app_todolist import model
 
 User = model.User
 Team = model.Team

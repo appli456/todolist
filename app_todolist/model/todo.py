@@ -3,7 +3,6 @@
 """
 
 from django.db import models
-from django.utils import timezone
 
 
 class User(models.Model):
@@ -16,8 +15,8 @@ class User(models.Model):
     u_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=128, unique=True)
     pwd = models.CharField(max_length=64)
-    create_at = models.DateField(default=timezone.now())
-    update_at = models.DateField(default=timezone.now())
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now_add=True)
 
 
 class Team(models.Model):
@@ -28,8 +27,8 @@ class Team(models.Model):
     """
     t_id = models.CharField(max_length=36, primary_key=True)  # UUID
     member = models.ManyToManyField(User)
-    create_at = models.DateField(default=timezone.now())
-    update_at = models.DateField(default=timezone.now())
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now_add=True)
 
 
 class Transaction(models.Model):
@@ -54,5 +53,5 @@ class Transaction(models.Model):
     parents_id = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
-    create_at = models.DateField(default=timezone.now())
-    update_at = models.DateField(default=timezone.now())
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now_add=True)
