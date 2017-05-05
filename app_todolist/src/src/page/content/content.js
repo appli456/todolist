@@ -51,8 +51,8 @@ class Content extends React.Component {
 
 
     render() {
-        let data = this.state.data;
-        return(<section className="list-content">
+        let data = this.props.data;
+        return data ? (<section className="list-content">
             <div className="transaction-container">
                 <div className="title">
                     <h1>{data ? data.name : null}</h1>
@@ -66,10 +66,10 @@ class Content extends React.Component {
                 <div>{data ? data.priority : null}</div>
             </div>
             <div className="button-container">
-                <button className={this.state.data.finish ? "btn btn-success" : "btn btn-info"}
+                <button className={data.finish ? "btn btn-success" : "btn btn-info"}
                         onClick={this.onClickButton(this.TYPE.FINISH).bind(this)}>
-                    <i className={this.state.data.finish ? 'fa check fa-check' : 'fa check fa-remove'}/>
-                    {this.state.data.finish ? "Finish" : "Unfinished"}
+                    <i className={data.finish ? 'fa check fa-check' : 'fa check fa-remove'}/>
+                    {data.finish ? "Finish" : "Unfinished"}
                 </button>
 
                 <button className="btn btn-primary"
@@ -84,7 +84,7 @@ class Content extends React.Component {
                     Delete
                 </button>
             </div>
-        </section>)
+        </section>) : null
     }
 }
 

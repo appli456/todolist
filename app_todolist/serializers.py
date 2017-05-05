@@ -3,7 +3,7 @@ from models import Transaction
 
 
 class TransactionSerializer(serializers.Serializer):
-    id = serializers.CharField(read_only=True)
+    t_id = serializers.CharField(required=True)
     name = serializers.CharField(required=True, max_length=128)
     detail = serializers.CharField(required=True, max_length=2048)
     finish = serializers.BooleanField(required=True)

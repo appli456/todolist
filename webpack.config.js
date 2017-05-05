@@ -14,5 +14,5 @@ switch (process.env.NODE_ENV) {
     default:
         load = require('./app_todolist/src/config/webpack-dev')({debug: true});
 }
-//console.log(load);
+// console.log(load);
 module.exports = load;

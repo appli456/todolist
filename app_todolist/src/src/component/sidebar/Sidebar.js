@@ -13,8 +13,8 @@ class Sidebar extends React.Component {
      * click item
      */
     onClickItem(event) {
-        console.log(event.target)
-        // todo: send click item index to the root - index in the attribute named data-id
+        let id = event.target.getAttribute('data-id');
+        this.props.callback(parseInt(id));
     }
 
     generateListItem(value, key) {
@@ -40,8 +40,10 @@ class Sidebar extends React.Component {
 }
 
 Sidebar.PropTypes = {
-    data: React.PropTypes.object
+    data: React.PropTypes.object.isRequired,
+    callback: React.PropTypes.func.isRequired
 };
 Sidebar.displayName = 'todo list sidebar';
+
 
 export default Sidebar;
