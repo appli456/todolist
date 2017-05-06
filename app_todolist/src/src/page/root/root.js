@@ -79,7 +79,18 @@ class Root extends React.Component {
             case 0:
             case 2:
                 this.props.onEdit(data.t_id, data).then((data) => {
-
+                    this.setState({
+                        data: this.state.data.map((value) => {
+                            if(value.t_id === data.t_id) {
+                                for(let key in data) {
+                                    if(data.hasOwnProperty(key)) {
+                                        value[key] = data[key]
+                                    }
+                                }
+                            }
+                            return value;
+                        })
+                    })
                 });
                 break;
             case 1:

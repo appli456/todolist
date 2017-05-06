@@ -49,8 +49,13 @@ def add_data(req):
 def edit_data(req, t_id):
     if req.method == 'POST':
         data = JSONParser().parse(req)
-        # data.pop('t_id')
-        return execute_post_data(data)
+        print (data)
+        Transaction.objects.filter(t_id=t_id).update(finish=data['finish'],
+                                                     name=data['name'],
+                                                     detail=data['detail'],
+                                                     expire_date=data['expire_date'],
+                                                     priority=data['priority'])
+        return JsonResponse(data, safe=False)
     return HttpResponse(status=404)
 
 

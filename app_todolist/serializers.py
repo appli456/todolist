@@ -31,6 +31,7 @@ class TransactionSerializer(serializers.Serializer):
         """
         Update and return an existing `Transaction` instance, given the validated data.
         """
+        instance.t_id = validated_data.get('t_id', instance.t_id)
         instance.name = validated_data.get('name', instance.name)
         instance.detail = validated_data.get('detail', instance.detail)
         instance.finish = validated_data.get('finish', instance.finish)

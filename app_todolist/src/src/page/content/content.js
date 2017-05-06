@@ -59,25 +59,59 @@ class Content extends React.Component {
             });
     };
 
+    /**
+     * send edit message
+     * @param type
+     */
     executeEdit(type) {
+        if(this.state.onEdit) {
+            let obj = {};
+            let key = ['t_id', 'name', 'detail', 'finish', 'expire_date', 'priority'];
+            key.forEach((value) => {
+                obj[value] = this.state[value];
+            });
+            this.props.callback(type, obj);
+        }
         this.setState({
             onEdit: !this.state.onEdit
         });
-        let obj = {};
-        let key = ['t_id', 'name', 'detail', 'finish', 'expire_date', 'priority'];
-        key.forEach((value) => {
-            obj[value] = this.state[value]
-        });
-        this.props.callback(type, obj);
     }
 
+    /**
+     * send delete message
+     * @param type
+     */
     executeDelete(type) {
         this.props.callback(type, this.state.t_id);
     }
 
+    /**
+     * send finish message
+     * @param type
+     */
+    executeFinish(type) {
+        if(!this.state.onEdit) {
+            let obj = {};
+            let key = ['t_id', 'name', 'detail', 'finish', 'expire_date', 'priority'];
+            key.forEach((value) => {
+                if(value === 'finish') {
+                    obj[value] = !this.state[value];
+                } else {
+                    obj[value] = this.state[value];
+                }
+            });
+            this.props.callback(type, obj);
+        }
+        this.setState({
+            finish: !this.state.finish
+        });
+    }
+
     onInputChange(name){
         return function(event) {
-            this.setState({name: event.target.value});
+            let obj = {};
+            obj[name] = event.target.value;
+            this.setState(obj);
         }
     }
 
@@ -101,6 +135,7 @@ class Content extends React.Component {
                     this.executeDelete(type);
                     break;
                 case this.TYPE.FINISH:
+                    this.executeFinish(type);
                     break;
                 default:
                     break;
@@ -119,13 +154,13 @@ class Content extends React.Component {
                         (<label style={{width: "100%"}}>Name:<input type="text" value={this.state.name}
                             onChange={this.onInputChange('name').bind(this)}
                                             className="form-control"/></label>) :
-                        data.name) :
+                        this.state.name) :
                         null}</h1>
                     <span>expire date: {data ? ( this.state.onEdit ?
                             (<input type="text" value={this.state.expire_date}
                                 onChange={this.onInputChange('expire_date').bind(this)}
                                 className="form-control"/>) :
-                            data.expire_date
+                            this.state.expire_date
                         ) : null}
                     </span>
                 </div>
@@ -135,7 +170,7 @@ class Content extends React.Component {
                             onChange={this.onInputChange('detail').bind(this)}
                             value={this.state.detail}
                             className="form-control" rows={5}/></label>) :
-                        data.detail.split('\n').map(function (value, key){
+                        this.state.detail.split('\n').map(function (value, key){
                             return (<p key={key}>{value}</p>)
                         })): null}
                 </div>
@@ -143,7 +178,7 @@ class Content extends React.Component {
                     (<input type="text" value={this.state.priority}
                             onChange={this.onInputChange('priority').bind(this)}
                             className="form-control"/>) :
-                    data.priority) : null}</div>
+                    this.state.priority) : null}</div>
             </div>
             <div className="button-container">
                 {this.state.onEdit ? null : (
