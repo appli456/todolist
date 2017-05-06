@@ -12,6 +12,7 @@ import ListModal from './../../component/modal/Modal';
 import {connect} from 'react-redux';
 import {addItem, editItem, } from './../../action/todolist-action';
 import NetworkStore from './../../util/network-util';
+import {deleteItem} from "../../action/todolist-action";
 
 class Root extends React.Component {
     constructor(props, context) {
@@ -73,6 +74,28 @@ class Root extends React.Component {
         textarea.forEach((ele) => {ele.value=''});
     }
 
+    contentCallback(type, data) {
+        switch (type) {
+            case 0:
+            case 2:
+                this.props.onEdit(data.t_id, data).then((data) => {
+
+                });
+                break;
+            case 1:
+                this.props.onDelete(data).then((msg) => {
+                    if(msg.success) {
+                        this.setState({contentData: null,
+                            data: this.state.data.filter((obj) => {
+                                return obj.t_id !== data;
+                            })});
+                    }
+                });
+                break;
+            default:
+                break;
+        }
+    }
 
     render(){
         return (<Container fluid={true}>
@@ -92,7 +115,7 @@ class Root extends React.Component {
                 </div>
 
                 <div className="col-md-7">
-                    <Content data={this.state.contentData}/>
+                    <Content data={this.state.contentData} callback={this.contentCallback.bind(this)}/>
                 </div>
             </div>
             <ListModal title={"Add Item"} show={this.state.modalOpen}
@@ -114,9 +137,6 @@ class Root extends React.Component {
                     </div>
                 </form>
             </ListModal>
-            <div>
-                <button onClick={()=>{console.log(this.state.data)}}>???</button>
-            </div>
         </Container>)
     }
 }
@@ -131,8 +151,13 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(addItem(data));
             return NetworkStore.addItem(data);
         },
-        onEdit: async (data) => {
-            dispatch()
+        onEdit: async (id, data) => {
+            dispatch(editItem(id, data));
+            return NetworkStore.editItem(id, data)
+        },
+        onDelete: async (id) => {
+            dispatch(deleteItem(id));
+            return NetworkStore.deleteItem(id)
         }
     }
 };

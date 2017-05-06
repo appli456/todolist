@@ -23,11 +23,17 @@ class NetworkStore{
     }
 
     static editItem(id, obj) {
-
+        return axios.post(`http://localhost:8000/api/edit-data/${id}`, obj)
+            .then(function (res) {
+                return res.data;
+            })
     }
 
     static deleteItem(id) {
-
+        return axios.get(`http://localhost:8000/api/delete-data/${id}`)
+            .then((res) => {
+                return res.data;
+            })
     }
 }
 

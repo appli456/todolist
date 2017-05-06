@@ -1,6 +1,10 @@
 .list-content {
   font-size: 16px;
+  overflow-x: hidden;
   .transaction-container {
+    overflow-x: hidden;
+    word-break: break-all;
+
     .title {
 
     }

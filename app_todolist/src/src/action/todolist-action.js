@@ -32,20 +32,22 @@ export function addItem(data) {
 
 /**
  * edit item
+ * @param id
  * @param data
  * @returns {{type: number, data: *}}
  */
-export function editItem(data) {
+export function editItem(id, data) {
     return {
         type: ACTION.EDIT,
-        data
+        data,
+        id
     }
 }
 
-export function deleteItem(data) {
+export function deleteItem(id) {
     return {
         type: ACTION.DELETE,
-        data
+        id
     }
 }
 

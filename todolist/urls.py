@@ -21,7 +21,9 @@ from app_todolist import views
 urlpatterns = [
     url(r'^api/get-data', views.get_data),
     url(r'^api/add-data', views.add_data),
-    url(r'^api/edit-data', views.edit_data),
+    url(r'^api/edit-data/(?P<t_id>(\w|-){36})', views.edit_data),
+    url(r'api/delete-data/(?P<t_id1>(\w|-){36})',
+        views.delete_data),
     url(r'^list/', views.index),
     url(r'^admin/', admin.site.urls),
 ]
