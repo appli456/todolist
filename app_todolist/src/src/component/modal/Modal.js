@@ -22,7 +22,9 @@ class ListModal extends React.Component {
     }
 
     closeModal() {
-
+        if(this.props.onCancel) {
+            this.props.onCancel();
+        }
         // closing
         if(this.state.timing) {
             clearTimeout(this.modalCloseCallback);
@@ -38,6 +40,9 @@ class ListModal extends React.Component {
                 show: !show,
                 timing: 0
             });
+            if(this.props.onCancel) {
+                this.props.onCancel();
+            }
         }, 300);
 
         // onCancel
@@ -49,11 +54,11 @@ class ListModal extends React.Component {
 
     onClick() {
         // onConfirm
-
-        // todo: check full of that
-            // todo: close modal
-
-        this.clickModal();
+        if(this.props.onConfirm && this.props.onConfirm()) {
+            this.closeModal();
+            return;
+        }
+        // action
     }
 
 

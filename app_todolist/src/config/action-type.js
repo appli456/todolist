@@ -6,5 +6,5 @@ export const ACTION = {
     ADD: 1, // add transaction
     EDIT: 2, // edit transaction
     SORT: 3, // sort transaction
-    // PAGE: 4 // change page
+    DELETE: 4 // change page
 };

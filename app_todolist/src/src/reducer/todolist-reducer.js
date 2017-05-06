@@ -5,10 +5,10 @@ import {} from '../action/todolist-action';
 import {ACTION} from '../../config/action-type';
 import NetworkStore from '../util/network-util'
 
-export const data = async (state = {data: []}, action) => {
+export const data = (state = {data: []}, action) => {
     switch (action.type) {
         case ACTION.GET:
-            // state.data = await NetworkStore.getData();
+            // state.data = NetworkStore.getData();
             break;
         case ACTION.ADD:
             break;

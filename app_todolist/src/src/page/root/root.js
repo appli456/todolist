@@ -10,6 +10,8 @@ import Header from './../../component/header/Header'
 import './root.scss';
 import ListModal from './../../component/modal/Modal';
 import {connect} from 'react-redux';
+import {addItem, editItem, } from './../../action/todolist-action';
+import NetworkStore from './../../util/network-util';
 
 class Root extends React.Component {
     constructor(props, context) {
@@ -37,6 +39,41 @@ class Root extends React.Component {
         this.setState({modalOpen: true});
     }
 
+    modalConfirm() {
+        let obj = {};
+        let form = this.refs.form;
+        let input = form.querySelectorAll('input');
+        let textarea = form.querySelectorAll('textarea');
+        input.forEach(function (ele) {
+            let id = ele.id;
+            if(id === 'expire-date') {
+                obj['expire_date'] = new Date(ele.value);
+            } else if(id === 'priority') {
+                obj[id] = parseInt(ele.value);
+            } else {
+                obj[id] = ele.value;
+            }
+        });
+        textarea.forEach(function (ele) {
+            obj[ele.id] = ele.value;
+        });
+        obj['finish'] = false;
+        this.props.onAdd(obj).then((data) => {
+            this.setState({
+                data: this.state.data.concat([data])
+            });
+        });
+        return true;
+    }
+    clearModal() {
+        let form = this.refs.form;
+        let input = form.querySelectorAll('input');
+        let textarea = form.querySelectorAll('textarea');
+        input.forEach((ele) => {ele.value=''});
+        textarea.forEach((ele) => {ele.value=''});
+    }
+
+
     render(){
         return (<Container fluid={true}>
             <Header onAdd={this.openModal.bind(this)}/>
@@ -58,8 +95,9 @@ class Root extends React.Component {
                     <Content data={this.state.contentData}/>
                 </div>
             </div>
-            <ListModal title={"Add Item"} show={this.state.modalOpen}>
-                <form className="add-form">
+            <ListModal title={"Add Item"} show={this.state.modalOpen}
+                       onConfirm={this.modalConfirm.bind(this)} onCancel={this.clearModal.bind(this)}>
+                <form className="add-form" ref='form'>
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
                         <input type="text" className="form-control" id="name" placeholder="Transaction Name"/>
@@ -76,8 +114,29 @@ class Root extends React.Component {
                     </div>
                 </form>
             </ListModal>
+            <div>
+                <button onClick={()=>{console.log(this.state.data)}}>???</button>
+            </div>
         </Container>)
     }
 }
 
-export default Root;
+const mapStateToProps = (state) => {
+    return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onAdd: async (data) => {
+            dispatch(addItem(data));
+            return NetworkStore.addItem(data);
+        },
+        onEdit: async (data) => {
+            dispatch()
+        }
+    }
+};
+
+const RootContainer = connect(mapStateToProps, mapDispatchToProps)(Root);
+
+export default RootContainer;

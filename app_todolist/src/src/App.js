@@ -19,10 +19,6 @@ class App extends Component {
 
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    // console.log(nextState)
-  }
-
   render() {
     return (
         <Root data={this.state.data}/>
@@ -32,7 +28,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    data: state.data
+    data: state
   }
 }
 

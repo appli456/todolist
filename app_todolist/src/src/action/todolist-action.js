@@ -42,6 +42,13 @@ export function editItem(data) {
     }
 }
 
+export function deleteItem(data) {
+    return {
+        type: ACTION.DELETE,
+        data
+    }
+}
+
 /**
  * sort item
  * @param sortType

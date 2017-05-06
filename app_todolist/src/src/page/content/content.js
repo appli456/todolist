@@ -63,13 +63,13 @@ class Content extends React.Component {
                         return (<p key={key}>{value}</p>)
                     }): null}
                 </div>
-                <div>{data ? data.priority : null}</div>
+                <div>Priority: {data ? data.priority : null}</div>
             </div>
             <div className="button-container">
-                <button className={data.finish ? "btn btn-success" : "btn btn-info"}
+                <button className={!data.finish ? "btn btn-success" : "btn btn-info"}
                         onClick={this.onClickButton(this.TYPE.FINISH).bind(this)}>
-                    <i className={data.finish ? 'fa check fa-check' : 'fa check fa-remove'}/>
-                    {data.finish ? "Finish" : "Unfinished"}
+                    <i className={!data.finish ? 'fa check fa-check' : 'fa check fa-remove'}/>
+                    {!data.finish ? "Set Finish" : "Set Unfinished"}
                 </button>
 
                 <button className="btn btn-primary"

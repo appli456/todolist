@@ -25,6 +25,10 @@ class NetworkStore{
     static editItem(id, obj) {
 
     }
+
+    static deleteItem(id) {
+
+    }
 }
 
 // let networkStore = new NetworkStore();
